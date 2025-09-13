@@ -25,8 +25,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "Rahulmahajan45"
+          git config --global user.email "rahulmahajan45@gmail.com"
           git add student_list.txt
           git commit -m "Add student ${{ github.event.inputs.student_name }} to student_list.txt"
           git push
