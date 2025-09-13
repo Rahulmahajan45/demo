@@ -1,1 +1,35 @@
+name: Add Student
 
+on:
+  workflow_dispatch:
+    inputs:
+      student_name:
+        description: 'Name of the student to add'
+        required: true
+        type: string
+
+jobs:
+  add-student:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Add student to student_list.txt
+        run: |
+          echo "${{ github.event.inputs.student_name }}" >> student_list.txt
+          echo "Student '${{ github.event.inputs.student_name }}' added to student_list.txt"
+
+      - name: Show updated student_list.txt
+        run: cat student_list.txt
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add student_list.txt
+          git commit -m "Add student ${{ github.event.inputs.student_name }} to student_list.txt"
+          git push
+        env:
+          # This uses the default GitHub token for workflow runs
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
