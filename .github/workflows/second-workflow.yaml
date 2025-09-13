@@ -1,1 +1,34 @@
 
+name: Print New Student Added
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  print-new-student:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get student_list.txt diff
+        id: diff
+        run: |
+          # Find the previous commit before the PR merge
+          PREV_SHA=$(git rev-parse HEAD^)
+          # Get lines added to student_list.txt (change filename if needed)
+          ADDED=$(git diff $PREV_SHA HEAD -- student_list.txt | grep '^+' | grep -v '^+++' | cut -c2-)
+          echo "$ADDED"
+          echo "added_students<<EOF" >> $GITHUB_ENV
+          echo "$ADDED" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Print new student(s) added
+        run: |
+          echo "New student(s) added in student_list.txt:"
+          echo "${{ env.added_students }}"
