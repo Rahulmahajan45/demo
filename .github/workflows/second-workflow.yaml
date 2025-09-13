@@ -23,4 +23,4 @@ jobs:
           ls -ltr
           added_students=$(tail -n 1 student_list.txt)
           echo "New student(s) added in student_list.txt:"
-          echo "${{ env.added_students }}"
+          echo "added_students
