@@ -21,6 +21,7 @@ jobs:
         run: |
           # Find the previous commit before the PR merge
           PREV_SHA=$(git rev-parse HEAD^)
+          ls -ltr
           # Get lines added to student_list.txt (change filename if needed)
           ADDED=$(git diff $PREV_SHA HEAD -- student_list.txt | grep '^+' | grep -v '^+++' | cut -c2-)
           echo "$ADDED"
