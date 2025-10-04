@@ -18,6 +18,8 @@ jobs:
       - name: Display Working Directory & List Files   
         working-directory:  /home/runner
         run: | 
+          pwd
+          ls -ltr
           echo $GITHUB_SHA
           echo $GITHUB_REPOSITORY
           echo $GITHUB_WORKSPACE
