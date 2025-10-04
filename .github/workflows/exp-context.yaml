@@ -8,9 +8,10 @@ jobs:
     steps:
       - name: Expressions
         id: expressions
-        if: 2 > 3
+        
         run: |
           echo ${{ 1 }}
+          if: 2 > 3
           echo ${{ 'This is a string' }}
           echo ${{ null }}
           echo ${{ true }}
