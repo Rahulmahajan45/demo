@@ -11,7 +11,6 @@ jobs:
         
         run: |
           echo ${{ 1 }}
-          if: 2 > 3
           echo ${{ 'This is a string' }}
           echo ${{ null }}
           echo ${{ true }}
@@ -20,6 +19,7 @@ jobs:
           echo ${{ true && false }}
           echo ${{ true || (false && true) }}
       - name: Dump Contexts
+        if: 2 > 3
         run: |
           echo '${{ toJson(github.repository_owner) }}'
           echo "New Line"
