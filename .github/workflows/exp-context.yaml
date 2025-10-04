@@ -20,11 +20,11 @@ jobs:
         run: |
           echo '${{ toJson(github.repository_owner) }}'
           echo "New Line"
-          echo '${{ toJson(job) }}'
+          echo '${{ toJson(job.status) }}'
           echo "New Line"
           echo '${{ toJson(secrets) }}'
           echo "New Line"
           echo '${{ toJson(steps) }}'
           echo "New Line"
-          echo '${{ toJson(runner) }}'
+          echo '${{ toJson(runner.os) }}'
           echo "New Line"
