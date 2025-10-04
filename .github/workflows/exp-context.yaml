@@ -1,9 +1,11 @@
 name: Expressions & Contexts
 on: [push, pull_request,  workflow_dispatch]
 run-name: "Expressions & Contexts by @${{ github.actor }}, event: ${{ github.event_name }}"
+
 jobs:
   using-expressions-and-contexts:
     runs-on: ubuntu-latest
+    if: 2 > 3
     
     steps:
       - name: Expressions
@@ -19,7 +21,7 @@ jobs:
           echo ${{ true && false }}
           echo ${{ true || (false && true) }}
       - name: Dump Contexts
-        if: 2 > 3
+        
         run: |
           echo '${{ toJson(github.repository_owner) }}'
           echo "New Line"
