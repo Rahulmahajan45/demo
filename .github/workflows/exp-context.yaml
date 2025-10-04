@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Expressions
         id: expressions
-        if: github.event_name == 'issue'
+        if: 2 > 3
         run: |
           echo ${{ 1 }}
           echo ${{ 'This is a string' }}
