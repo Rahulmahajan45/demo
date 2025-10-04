@@ -1,10 +1,10 @@
 name: Expressions & Contexts
-on: [push, pull_request, issues, workflow_dispatch]
+on: [push, pull_request,  workflow_dispatch]
 run-name: "Expressions & Contexts by @${{ github.actor }}, event: ${{ github.event_name }}"
 jobs:
   using-expressions-and-contexts:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'issue'
     steps:
       - name: Expressions
         id: expressions
