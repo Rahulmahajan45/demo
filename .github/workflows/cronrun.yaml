@@ -1,4 +1,4 @@
-name: Student List Every 10 Minutes
+/*name: Student List Every 10 Minutes
 
 on:
   schedule:
@@ -18,3 +18,4 @@ jobs:
           else
             echo "student_list.txt not found!"
           fi
+*/
