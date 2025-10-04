@@ -17,10 +17,10 @@ jobs:
       - name: View SW Version
         run: sw_vers
   dependant-job:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: run-shell-commands
     steps:
       - name: echo a string
-        run: Write-Output "Windows String"
+        run: echo "dependent jobs"
       - name: Error Step
-        run: doesnotexits
+        run: echo "dependent jobs"111
