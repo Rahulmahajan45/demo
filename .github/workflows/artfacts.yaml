@@ -1,0 +1,27 @@
+name: Caching and Artifacts
+on: [workflow_dispatch]
+jobs:
+  use-axios:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+  
+      - name: Display Cache Output
+        run: echo "My name is rahul" > rahul.txt
+      - name: Install dependencies
+        run: ls -ltr
+      - name: Upload Code Coverage Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: code-coverage
+          path: coverage
+          retention-days: 10
+      - name: Download Code Coverage
+        uses: actions/download-artifact@v3
+        with:
+          name: code-coverage
+          path: code-coverage-report
+      - run: ls -a
+      - run: ls -a
+      
