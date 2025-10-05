@@ -8,7 +8,12 @@ jobs:
         uses: actions/checkout@v4
   
       - name: Display Cache Output
-        run: echo "My name is rahul" > rahul.txt
+        run: |
+          mkdir coverage
+          cd coverage
+          ls -ltr
+          echo "My name is rahul" > rahul.txt
+          ls -ltr
       - name: Install dependencies
         run: ls -ltr
       - name: Upload Code Coverage Report
