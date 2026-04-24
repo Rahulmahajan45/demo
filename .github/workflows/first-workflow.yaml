@@ -6,9 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo a string
-        run: echo "Hello World"
-      - name: Multiline Command
-        run: |
-          node -v
-          npm -v
-          echo "Hello"
+        run: echo "First workflow successfully executed"
+      #- name: Multiline Command
+      #  run: |
+      #    node -v
+      #    npm -v
+      #    echo "Hello"
