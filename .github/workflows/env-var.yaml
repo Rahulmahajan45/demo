@@ -1,0 +1,113 @@
+name: Environment Variables Demo
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  WORKFLOW_ENV: "This is a workflow-level environment variable"
+  APP_VERSION: "1.0.0"
+  ENVIRONMENT: "production"
+
+jobs:
+  job1:
+    name: Job 1 - Workflow Level Variables
+    runs-on: ubuntu-latest
+    env:
+      JOB1_ENV: "This is a job-level environment variable for Job 1"
+      DATABASE_HOST: "db.example.com"
+    
+    steps:
+      - name: Print Workflow Level Variables
+        run: |
+          echo "=== Workflow Level Variables ==="
+          echo "WORKFLOW_ENV: $WORKFLOW_ENV"
+          echo "APP_VERSION: $APP_VERSION"
+          echo "ENVIRONMENT: $ENVIRONMENT"
+      
+      - name: Print Job Level Variables
+        run: |
+          echo "=== Job Level Variables ==="
+          echo "JOB1_ENV: $JOB1_ENV"
+          echo "DATABASE_HOST: $DATABASE_HOST"
+      
+      - name: Print Step Level Variables - Step 1
+        env:
+          STEP_VAR_1: "This is a step-level environment variable"
+          LOG_LEVEL: "DEBUG"
+        run: |
+          echo "=== Step Level Variables (Step 1) ==="
+          echo "STEP_VAR_1: $STEP_VAR_1"
+          echo "LOG_LEVEL: $LOG_LEVEL"
+          echo "Workflow ENV still accessible: $WORKFLOW_ENV"
+          echo "Job ENV still accessible: $JOB1_ENV"
+      
+      - name: Print Step Level Variables - Step 2
+        env:
+          STEP_VAR_2: "This is a different step-level variable"
+          REQUEST_TIMEOUT: "30s"
+        run: |
+          echo "=== Step Level Variables (Step 2) ==="
+          echo "STEP_VAR_2: $STEP_VAR_2"
+          echo "REQUEST_TIMEOUT: $REQUEST_TIMEOUT"
+          echo "STEP_VAR_1 NOT accessible here (only exists in Step 1): ${STEP_VAR_1:-NOT_AVAILABLE}"
+
+  job2:
+    name: Job 2 - Different Job Level Variables
+    runs-on: ubuntu-latest
+    env:
+      JOB2_ENV: "This is a job-level environment variable for Job 2"
+      API_KEY: "secret-key-12345"
+      REGION: "us-west-2"
+    
+    steps:
+      - name: Print All Levels - Job 2
+        run: |
+          echo "=== Job 2 Variables ==="
+          echo "Workflow ENV: $WORKFLOW_ENV"
+          echo "Job 2 ENV: $JOB2_ENV"
+          echo "API_KEY: $API_KEY"
+          echo "REGION: $REGION"
+      
+      - name: Override Workflow Variable at Step Level
+        env:
+          ENVIRONMENT: "staging"
+        run: |
+          echo "=== Variable Override Demo ==="
+          echo "Overridden ENVIRONMENT at step level: $ENVIRONMENT"
+      
+      - name: After Override
+        run: |
+          echo "=== After Override Step ==="
+          echo "ENVIRONMENT reverted to job/workflow level: $ENVIRONMENT"
+
+  job3:
+    name: Job 3 - Complex Environment Setup
+    runs-on: ubuntu-latest
+    env:
+      SERVICE_NAME: "demo-app"
+      CACHE_ENABLED: "true"
+    
+    steps:
+      - name: Demonstrate Environment Variable Precedence
+        env:
+          APP_VERSION: "2.0.0-beta"
+          CUSTOM_VAR: "Step level custom"
+        run: |
+          echo "=== Environment Variable Precedence ==="
+          echo "Step level APP_VERSION (overrides workflow): $APP_VERSION"
+          echo "Workflow level ENVIRONMENT: $ENVIRONMENT"
+          echo "Job level SERVICE_NAME: $SERVICE_NAME"
+          echo "Step level CUSTOM_VAR: $CUSTOM_VAR"
+      
+      - name: Summary of Variable Access
+        run: |
+          echo "=== Summary of Environment Variable Access ==="
+          echo "✓ Workflow level: WORKFLOW_ENV, APP_VERSION, ENVIRONMENT"
+          echo "✓ Job level: SERVICE_NAME, CACHE_ENABLED"
+          echo "✓ Step level: Defined in individual steps"
+          echo ""
+          echo "Note: Variables are inherited from higher levels"
+          echo "Lower levels can override higher levels"
+          echo "Step level variables only exist within that step"
