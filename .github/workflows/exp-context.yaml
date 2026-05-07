@@ -5,7 +5,7 @@ run-name: "Expressions & Contexts by @${{ github.actor }}, event: ${{ github.eve
 jobs:
   using-expressions-and-contexts:
     runs-on: ubuntu-latest
-    if: 2 > 3
+    if: 4 > 3
     
     steps:
       - name: Expressions
